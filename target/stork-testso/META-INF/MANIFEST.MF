@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Built-By: Fay
+Created-By: Apache Maven
+Build-Jdk: 1.8.0_51
+Extension-Name: SP-eBankDemo
+Implementation-Title: SP-eBankDemo
+Implementation-Version: 1.4.2
+
