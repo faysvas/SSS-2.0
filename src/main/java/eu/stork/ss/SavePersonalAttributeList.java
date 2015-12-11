@@ -4,7 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import eu.stork.ss.Monitoring;
 import com.opensymphony.xwork2.Action;
 
 import eu.stork.peps.auth.commons.IPersonalAttributeList;
@@ -23,6 +23,8 @@ public abstract class SavePersonalAttributeList extends AbstractAction {
 
 	//The token
 	private String returnUrl;
+        
+        Monitoring monitor = new Monitoring(); 
 
 	/**
 	 * Check that the session variables are OK and display the list of known countries
@@ -39,7 +41,7 @@ public abstract class SavePersonalAttributeList extends AbstractAction {
 
 			if ( session==null || token==null || pal==null ) {
 				String message = "Session is empty or contains invalid data!";
-
+                                 monitor.monitoringLog( "<span class='error'>Step 5: Error! "+message+"</span>");
 				logger.error(message);
 				throw new ApplicationSpecificServiceException("Session error", message);
 			}
@@ -48,7 +50,7 @@ public abstract class SavePersonalAttributeList extends AbstractAction {
 		returnUrl = savePersonalAttributeList(token, pal);
 		if ( returnUrl==null ) {
 			String message = "Failed to save the PAL returned from STORK to the SP.";
-
+ monitor.monitoringLog( "<span class='error'>Step 5: Error! "+message+"</span>");
 			logger.error(message);
 			throw new ApplicationSpecificServiceException("PAL saving failed!", message);
 		}

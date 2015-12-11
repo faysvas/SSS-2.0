@@ -62,7 +62,7 @@ public class SaveDummySP extends SavePersonalAttributeList {
 				returnUrl = configs.getProperty(Constants.SR_URL);
 				failUrl = configs.getProperty(Constants.SF_URL);
 			} catch (IOException e) {
-                            monitor.monitoringLog( "<span class='error'>Step 5: Error!</span>");
+                            monitor.monitoringLog( "<span class='error'>Step 5: Error! "+e.toString()+"</span>");
 			}
 
 			logger.debug("The ServiceURL: [" + serviceUrl + "]");
@@ -176,7 +176,7 @@ public class SaveDummySP extends SavePersonalAttributeList {
 			    httpclient.close();
 			}
 		} catch(Exception ex) {
-                    monitor.monitoringLog( "<span class='error'>Step 5: Error!</span>");
+                    monitor.monitoringLog( "<span class='error'>Step 5: Error! "+ex.toString()+"</span>");
 			System.out.println("IOException: [" + ex + "]");
 			logger.error("IOException: [" + ex + "]");
 		}

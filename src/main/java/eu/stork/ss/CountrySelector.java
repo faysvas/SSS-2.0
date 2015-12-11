@@ -40,7 +40,7 @@ public class CountrySelector extends AbstractAction {
 			if ( session==null || session.getAttribute(Constants.SP_TOKEN)==null
 					|| session.getAttribute(Constants.SP_PAL)==null ) {
 				String message = "Session is empty or contains invalid data!";
-                                  monitor.monitoringLog( "<span class='error'>Step 2: Error!</span>");
+                                  monitor.monitoringLog( "<span class='error'>Step 2: Error! "+message+"</span>");
 				logger.error(message);
 				throw new ApplicationSpecificServiceException("Session error", message);
 			}
@@ -50,7 +50,7 @@ public class CountrySelector extends AbstractAction {
 		try {
 			configs = SPUtil.loadConfigs(Constants.SP_PROPERTIES);
 		} catch (IOException e) {
-                    monitor.monitoringLog( "<span class='error'>Step 2: Error!</span>");
+                    monitor.monitoringLog( "<span class='error'>Step 2: Error! "+e.toString()+"</span>");
 			logger.error(e.getMessage());
 			throw new ApplicationSpecificServiceException("Could not load configuration file", e.getMessage());
 		}

@@ -64,7 +64,7 @@ public class RetrieveDummySP extends RetrievePersonalAttributeList {
                                 providerName=configs.getProperty(Constants.PROVIDER_NAME);
                                
 			} catch (IOException e) {
-                            monitor.monitoringLog( "<span class='error'>Step 1: Error!</span>");
+                            monitor.monitoringLog( "<span class='error'>Step 1: Error! "+e.toString()+"</span> ");
 			}
                    
                              
@@ -132,7 +132,7 @@ public class RetrieveDummySP extends RetrievePersonalAttributeList {
                                         
 				}
 			} catch(Exception e) {
-                            monitor.monitoringLog( "<span class='error'>Step 1: Error!</span>");
+                            monitor.monitoringLog( "<span class='error'>Step 1: Error! "+e.toString()+"</span>");
 				//All other Exceptions
 				logger.error("Exception: [" + e + "]");
 				e.printStackTrace();
@@ -142,7 +142,7 @@ public class RetrieveDummySP extends RetrievePersonalAttributeList {
 			}
 		} catch(IOException ex) {
 			//Exception in CloseableHttpResponse
-                    monitor.monitoringLog( "<span class='error'>Step 1: Error!</span>");
+                    monitor.monitoringLog( "<span class='error'>Step 1: Error! "+ex.toString()+"</span>");
 			logger.error("IOException: [" + ex + "]");
 			ex.printStackTrace();
 		}

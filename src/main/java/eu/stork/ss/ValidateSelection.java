@@ -57,7 +57,7 @@ public class ValidateSelection extends AbstractAction {
 			if ( session==null || session.getAttribute(Constants.SP_TOKEN)==null
 					|| session.getAttribute(Constants.SP_PAL)==null ) {
 				String message = "Session is empty or contains invalid data!";
-monitor.monitoringLog( "<span class='error'>Step 3: Error!</span>");
+                          monitor.monitoringLog( "<span class='error'>Step 3: Error! "+message+"+</span>");
 				logger.error(message);
 				throw new ApplicationSpecificServiceException("Session error", message);
 			}
@@ -67,7 +67,7 @@ monitor.monitoringLog( "<span class='error'>Step 3: Error!</span>");
 		try {
 			configs = SPUtil.loadConfigs(Constants.SP_PROPERTIES);
 		} catch (IOException e) {
-                    monitor.monitoringLog( "<span class='error'>Step 3: Error!</span>");
+                    monitor.monitoringLog( "<span class='error'>Step 3: Error! "+e.toString()+"</span>");
 			logger.error(e.getMessage());
 			throw new ApplicationSpecificServiceException("Could not load configuration file", e.getMessage());
 		}
@@ -120,7 +120,7 @@ monitor.monitoringLog( "<span class='error'>Step 3: Error!</span>");
 				session.setAttribute(Constants.ISSUER_SP, authnRequest.getIssuer());
 				//--
 			}catch(STORKSAMLEngineException e){
-                            monitor.monitoringLog( "<span class='error'>Step 3: Error!</span>");
+                            monitor.monitoringLog( "<span class='error'>Step 3: Error! "+e.toString()+"</span>");
 				logger.error(e.getMessage());
 				throw new ApplicationSpecificServiceException("Could not generate token for Saml Request", e.getErrorMessage());
 			}

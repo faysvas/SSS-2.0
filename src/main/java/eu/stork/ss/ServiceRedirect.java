@@ -53,6 +53,7 @@ public class ServiceRedirect extends AbstractAction {
 				STORKAuthnResponse authnResponse = engine.validateSTORKAuthnResponseWithQuery(decSamlToken, (String)getServletRequest().getRemoteHost());				
 
 				if( authnResponse.isFail() ){
+                                    monitor.monitoringLog( "<span class='error'>Step 4: Error! Saml Response had failed!</span>");
 					exception = new ApplicationSpecificServiceException("Saml Response had failed!", authnResponse.getMessage());
 				}
 				else {
@@ -62,22 +63,22 @@ public class ServiceRedirect extends AbstractAction {
 						if (pal.isEmpty())
 							pal = authnResponse.getPersonalAttributeList();
 					}
-                                        else{   monitor.monitoringLog( "<span class='error'>Step 4: Error!</span>");
+                                        else{   monitor.monitoringLog( "<span class='error'>Step 4: Error! Saml Response validation failed!. Either the Issuer or the SAML response ID are invalid!</span>");
 						exception = new ApplicationSpecificServiceException("Saml Response validation failed!", "Either the Issuer or the SAML response ID are invalid!");
                                         }
                                         }
 			}catch(STORKSAMLEngineException e){	
-                            monitor.monitoringLog( "<span class='error'>Step 4: Error!</span>");
+                            monitor.monitoringLog( "<span class='error'>Step 4: Error! "+e.toString()+"</span>");
 				exception = new ApplicationSpecificServiceException("Could not validate token for Saml Response", e.getErrorMessage());
 			}
 		} catch(Exception e) {
-                    monitor.monitoringLog( "<span class='error'>Step 4: Error!</span>");
+                    monitor.monitoringLog( "<span class='error'>Step 4: Error! "+e.toString()+"</span>");
 			exception = new ApplicationSpecificServiceException("Saml Response is invalid!", "Failed to parse the SAML response from PEPS.");
 		}
 
 		//Check if we had a failure and throw an exception
 		if ( exception!=null ) {
-                    monitor.monitoringLog( "<span class='error'>Step 4: Error!</span>");
+                    monitor.monitoringLog( "<span class='error'>Step 4: Error! "+exception.getMessage()+"</span>");
 			logger.error(exception.getMessage());
 			throw exception;
 		}

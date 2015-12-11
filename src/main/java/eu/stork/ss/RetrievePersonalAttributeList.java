@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.opensymphony.xwork2.Action;
-
+import eu.stork.ss.Monitoring;
 import eu.stork.peps.auth.commons.IPersonalAttributeList;
 
 public abstract class RetrievePersonalAttributeList extends AbstractAction {
@@ -20,6 +20,8 @@ public abstract class RetrievePersonalAttributeList extends AbstractAction {
 
 	//The PAL
 	private IPersonalAttributeList pal;
+        
+        Monitoring monitor = new Monitoring(); 
 
 	/**
 	 * Make sure this is a valid request from the service provider.
@@ -32,7 +34,7 @@ public abstract class RetrievePersonalAttributeList extends AbstractAction {
 
 		if ( token==null ) {
 			message = "The token is NULL. This indicates a bad formatted request.";
-
+                        monitor.monitoringLog( "<span class='error'>Step 1: Error! "+message+"</span>"); 
 			logger.error(message);
 			throw new ApplicationSpecificServiceException("The token is NULL!", message);
 		}
@@ -42,7 +44,7 @@ public abstract class RetrievePersonalAttributeList extends AbstractAction {
 
 			if ( this.pal==null ) {
 				message = "The PAL returned from retrievePersonalAttributeList is NULL. This either indicates an error with the SP or a connection problem.";
-
+                         monitor.monitoringLog( "<span class='error'>Step 1: Error! "+message+"</span>");
 				logger.error(message);
 				throw new ApplicationSpecificServiceException("The PAL is NULL!", message);
 			}
